@@ -12,6 +12,10 @@ import threading
 from PyQt5 import QtCore, QtGui, QtWidgets
 import requests
 from threading import Thread
+import sys
+import socket
+    
+import keyboard
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
@@ -43,6 +47,7 @@ class Ui_MainWindow(object):
 "  background: qlineargradient(spread:pad, x1:0.920364, y1:0.585, x2:0.125, y2:0.6875, stop:0.403409 rgba(167, 185, 255, 255), stop:0.994318 rgba(131, 189, 232, 255));\n"
 "  box-shadow: 0 0 20px rgba(0, 0, 0, .1);")
         self.connetc.setObjectName("connetc")
+        self.connetc.clicked.connect(self.conne)
         self.x_left = QtWidgets.QPushButton(self.centralwidget)
         self.x_left.setGeometry(QtCore.QRect(170, 70, 191, 71))
         self.x_left.clicked.connect(self.x_l)
@@ -138,15 +143,44 @@ class Ui_MainWindow(object):
         self.busvoltage.setText(_translate("MainWindow", "busvoltage"))
         self.power_mW.setText(_translate("MainWindow", "power_mW"))
         self.current_mA.setText(_translate("MainWindow", "current_mA"))
-    def update(self):
-            while True:
-                temp = requests.get("http://192.168.31.160/temperature")
-                humi = requests.get("http://192.168.3.160/humidity")
-                prec = requests.get("http://192.168.31.160/pressure")
 
-                self.temp.setText("Temp: {} C".format(temp.text))
-                self.humi.setText("Humidity: {} %".format(humi.text))
-                self.prec.setText("Pressure: {} hPa".format(prec.text))
+
+    def update(self):
+            print("get data")
+            while True:
+                HOST = '127.0.0.1'  # The server's hostname or IP address
+                PORT = 8888        # The port used by the server
+
+                with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
+                    s.connect((HOST, PORT))
+                    s.sendall(b't')
+                    temp = s.recv(1024)
+                    s.close()
+                self.temp.setText("Temp: {} C".format(temp))
+                print('Received', repr(temp))
+
+
+                with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
+                    s.connect((HOST, PORT))
+                    s.sendall(b'h')
+                    humi = s.recv(1024)
+                    s.close()
+                self.humi.setText("Humidity: {} %".format(humi))
+                print('Received', repr(humi))
+
+
+                with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
+                    s.connect((HOST, PORT))
+                    s.sendall(b'p')
+                    precc = s.recv(1024)
+                    s.close()
+                self.prec.setText("Precc: {} hPa".format(precc))
+                print('Received', repr(precc))
+                
+
+                
+                
+
     def conne(self):
             
             up = Thread(target=self.update)
@@ -158,9 +192,23 @@ class Ui_MainWindow(object):
             requests.get("http://192.168.31.10/on_led")
     def x_l(self):
             requests.get("http://192.168.31.10/off_led")
+def contorl():
+
+    sys.path.append('..')
+    while True:
+        if keyboard.read_key() == "a":
+            print("left")
+
+        if keyboard.read_key() == "d":
+            print("right")
+
+        if keyboard.read_key() == "s":
+            print("stop")
+
    
 if __name__ == "__main__":
-    import sys
+    contorl = Thread(target=contorl)
+    contorl.start()
     app = QtWidgets.QApplication(sys.argv)
     window = QtWidgets.QMainWindow()
     ui = Ui_MainWindow()
