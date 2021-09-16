@@ -194,17 +194,7 @@ class Ui_MainWindow(object):
             requests.get("http://192.168.31.10/off_led")
 def contorl():
 
-    sys.path.append('..')
-    while True:
-        if keyboard.read_key() == "a":
-            print("left")
-
-        if keyboard.read_key() == "d":
-            print("right")
-
-        if keyboard.read_key() == "s":
-            print("stop")
-
+    
    
 if __name__ == "__main__":
     contorl = Thread(target=contorl)
