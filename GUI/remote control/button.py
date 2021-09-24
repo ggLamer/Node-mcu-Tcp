@@ -1,42 +1,40 @@
 from gpiozero import Button
 import socket
+from Threading import Thread
 from  time import sleep
 from signal import pause
 left = Button(14)
 right = Button(15)
-HOST = '192.168.31.40' 
-PORT = 8888 
 
-
+HOST_left = '192.168.70.218' 
+HOST_right = '192.168.70.218' 
+PORT = 9090
 
 def r():
-	while right.value:
-		print("right")     
-		s.sendall(b'right')
-		sleep(0.2)
+	print("right")     
+	s.sendall(b'r')
       
 
 def l():
-	while left.value:
-		print("left")       
-		s.sendall(b'left')
-		sleep(0.2)
-
+	print("left")       
+	s.sendall(b'l')	
 
 def stop():
 	print("stop")
-	s.sendall(b'stop')
-	
-            
+	s.send(b's')
+	sleep(0.2)
+
+
 
 def main():
-	left.when_pressed = l
+    left.when_pressed = l
 	right.when_pressed = r
 	sleep(0.1)
 	left.when_released  = stop
 	right.when_released  = stop
 
-	pause()
+	pause() 
+
 
 
 if __name__ == '__main__':
