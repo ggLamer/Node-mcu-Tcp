@@ -23,7 +23,7 @@ Adafruit_INA219 ina219;
 
 uint32_t f = 10000;
 
-uint32_t t = 1000000 / f / 2; // Определяем длительность импульсов t3 и пауз t4 в мкс.
+uint32_t t = 100; // Определяем длительность импульсов t3 и пауз t4 в мкс.
 
 String getbusvoltage() {
   float busvoltage = 0;
@@ -77,7 +77,7 @@ void loop() {
       while (client.available() > 0) {
         char ch = static_cast<char>(client.read());
         Serial.print(ch);
-        if ch == "right"
+        if ch == "right":
       {
         Serial.println("right");
           digitalWrite( pin_ENA, 0 ); // Разрешаем работу двигателя.
@@ -92,7 +92,7 @@ void loop() {
             delayMicroseconds(t); // Выполняем задержку t4 (см. график STEP/DIR).
           }
         }
-        if ch == "left"
+        if ch == "left":
       {
         Serial.println("left");
           digitalWrite( pin_ENA, 0 ); // Разрешаем работу двигателя.
@@ -107,7 +107,7 @@ void loop() {
             delayMicroseconds(t); // Выполняем задержку t4 (см. график STEP/DIR).
           }
         }
-        if ch == "stop"
+        if ch == "stop":
       {
         Serial.println("stop");
           digitalWrite( pin_ENA, 1 );
