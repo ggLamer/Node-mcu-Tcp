@@ -22,6 +22,25 @@ const uint8_t pin_PUL = D8;
 uint32_t f = 1000;
 
 uint32_t t = 100; // Определяем длительность импульсов t3 и пауз t4 в мкс.
+<<<<<<< HEAD
+=======
+
+String getbusvoltage() {
+  float busvoltage = 0;
+  busvoltage = ina219.getBusVoltage_V();
+  return String(busvoltage);
+}
+String getpower_mW() {
+  float power_mW = 0;
+  power_mW = ina219.getPower_mW();
+  return String(power_mW);
+}
+String getcurrent_mA() {
+  float current_mA = 0;
+  current_mA = ina219.getCurrent_mA();
+  return String(current_mA);
+}
+>>>>>>> 7739943de448798d120ebc193d0a332064069ba0
 
 
 void setup() {
@@ -61,10 +80,17 @@ void loop() {
     while (client.connected()) {
       while (client.available() > 0) {
         char ch = static_cast<char>(client.read());
+<<<<<<< HEAD
        // Serial.print(ch);
         if (ch == 'r')
         {
           Serial.println("right");
+=======
+        Serial.print(ch);
+        if ch == "right":
+      {
+        Serial.println("right");
+>>>>>>> 7739943de448798d120ebc193d0a332064069ba0
           digitalWrite( pin_ENA, 0 ); // Разрешаем работу двигателя.
           delayMicroseconds(5); // Выполняем задержку t1 (см. график STEP/DIR).
           digitalWrite( pin_DIR, 0 ); // Выбираем направление вращения.
@@ -87,9 +113,15 @@ void loop() {
           
           }
         }
+<<<<<<< HEAD
         if (ch == 'l')
         {
           Serial.println("left");
+=======
+        if ch == "left":
+      {
+        Serial.println("left");
+>>>>>>> 7739943de448798d120ebc193d0a332064069ba0
           digitalWrite( pin_ENA, 0 ); // Разрешаем работу двигателя.
           delayMicroseconds(5); // Выполняем задержку t1 (см. график STEP/DIR).
           digitalWrite( pin_DIR, 1 ); // Выбираем направление вращения.
@@ -112,7 +144,15 @@ void loop() {
           
           }
         }
+<<<<<<< HEAD
         
+=======
+        if ch == "stop":
+      {
+        Serial.println("stop");
+          digitalWrite( pin_ENA, 1 );
+        }
+>>>>>>> 7739943de448798d120ebc193d0a332064069ba0
 
       }
     }

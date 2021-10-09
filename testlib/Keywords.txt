@@ -1,0 +1,6 @@
+testlib  KEYWORD1
+Motor KEYWORD1
+
+begin KEYWORD2
+setspeed KEYWORD2
+go KEYWORD2

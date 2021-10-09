@@ -193,7 +193,7 @@ class Ui_MainWindow(object):
     def x_l(self):
             requests.get("http://192.168.31.10/off_led")
 def contorl():
-
+    pass
     
    
 if __name__ == "__main__":

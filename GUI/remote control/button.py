@@ -3,6 +3,7 @@ import socket
 from Threading import Thread
 from  time import sleep
 from signal import pause
+import left
 left = Button(14)
 right = Button(15)
 

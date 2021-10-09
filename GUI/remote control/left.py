@@ -1,24 +1,22 @@
-def connect(HOST, PORT):
+import socket
+def r():
+	print("right")     
+	s.sendall(b'1;0')
+def main():
+
+	r()
+      
+if __name__ == '__main__':
+	HOST = "192.168.202.216"
+	PORT = 9090
 	try:
 		print(f"Connection to the {HOST} {PORT}")
 		s = socket.socket(socket.AF_INET, socket.SOCK_STREAM) 
 		s.connect((HOST, PORT))
 		print("Connecting")
-		
+		main()
 	except Exception as _ex:
 		print(f"Check server or client {_ex}")
 		s.close()
-def r():
-	print("right")     
-	s.sendall(b'r')
-      
 
-def l():
-	print("left")       
-	s.sendall(b'l')	
-
-def stop():
-	print("stop")
-	s.sendall(b's')
-	sleep(0.2)
-
+	
