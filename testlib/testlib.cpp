@@ -36,7 +36,7 @@ void Motor::go(float x, int speed = 100){
     digitalWrite( _dir, _direc ); 
 
     delayMicroseconds(5);
-    
+    unsigned long myTime = millis();
     for (int i = 0; i < dir * 65; i++) { 
         if (!_workState){
             digitalWrite( _en, 1 );
@@ -50,11 +50,13 @@ void Motor::go(float x, int speed = 100){
         delayMicroseconds(_speed);
         if(_direc != 0){gr--;}
         else{gr++;}
-        
     }
+    time = millis() - myTime;
+
     digitalWrite( _en, 1 );
     r = gr / 65; 
 }
 
 void Motor::reset(){r = 0; gr = 0; digitalWrite( _en, 1 );}
 float Motor::getrps(){return r;}
+int Motor::gettime(){time;}

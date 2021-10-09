@@ -8,15 +8,14 @@
 #define STAPSK  "R00000000"
 
 WiFiServer server(9090);
-Motor mymotor(27,26,25);
+Motor mymotor(D6,D7,D8);
 const char* ssid     = STASSID;
 const char* password = STAPSK;
 
 
 void setup() {
   mymotor.begin();
-  pinMode(02, OUTPUT);
-  pinMode(14, OUTPUT);
+
   //WIFI settings
   Serial.println();
   Serial.println();
@@ -67,9 +66,7 @@ void loop() {
         switch(data[0]){
           case 0: Serial.print("Task created ");Serial.println(data[1]); mymotor.go(data[1], data[2]); Serial.println(mymotor.getrps()); client.print(mymotor.getrps()); break;
           case 10: Serial.println("RESET"); mymotor.reset(); client.print(mymotor.getrps()); break;
-          case 1: Serial.println("Rotate "); Serial.println(data[1]);digitalWrite(2, data[1]);
-          case 2: Serial.println("2 Rotate "); Serial.println(data[1]);digitalWrite(14, data[1]);
-        }
+          }
         
       }
     }

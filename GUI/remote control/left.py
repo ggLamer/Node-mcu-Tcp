@@ -1,7 +1,7 @@
 import socket
 def r():
 	print("right")     
-	s.sendall(b'1;0')
+	s.sendall(b'0;100;100')
 def main():
 
 	r()

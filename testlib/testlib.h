@@ -9,6 +9,7 @@ public:
  void reset();
  void stop();
 
+ int gettime();
  float getrps();
 private:
     uint8_t _en;
@@ -21,5 +22,6 @@ private:
     float gr;
     bool _workState = true;
     float r;
+    unsigned long time;
     float dir;
 };
