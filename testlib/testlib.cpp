@@ -37,7 +37,7 @@ void Motor::go(float x, int speed = 100){
 
     delayMicroseconds(5);
     unsigned long myTime = millis();
-    for (int i = 0; i < dir * 65; i++) { 
+    for (int i = 0; i < dir*3000; i++) { 
         if (!_workState){
             digitalWrite( _en, 1 );
             Serial.println("");
@@ -50,13 +50,16 @@ void Motor::go(float x, int speed = 100){
         delayMicroseconds(_speed);
         if(_direc != 0){gr--;}
         else{gr++;}
+        r = gr / 3000; 
+        Serial.println(r);
     }
     time = millis() - myTime;
-
+    Serial.print("Time: ");Serial.println(time);
     digitalWrite( _en, 1 );
-    r = gr / 65; 
+    
 }
 
 void Motor::reset(){r = 0; gr = 0; digitalWrite( _en, 1 );}
 float Motor::getrps(){return r;}
-int Motor::gettime(){time;}
+unsigned long Motor::gettime(){return time;}
+float Motor::getspeed(){return r / time * 100;}

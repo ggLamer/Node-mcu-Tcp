@@ -9,7 +9,8 @@ public:
  void reset();
  void stop();
 
- int gettime();
+ float getspeed();
+ unsigned long gettime();
  float getrps();
 private:
     uint8_t _en;
