@@ -1,13 +1,13 @@
 import socket
 def r():
 	print("right")     
-	s.sendall(b'0;100;100')
+	s.sendall(b'0;300;100')
 def main():
 
 	r()
       
 if __name__ == '__main__':
-	HOST = "192.168.202.216"
+	HOST = "192.168.144.113"
 	PORT = 9090
 	try:
 		print(f"Connection to the {HOST} {PORT}")

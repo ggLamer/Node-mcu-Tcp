@@ -1,10 +1,14 @@
 import pygame
 import random
 from threading import Thread
+import requests
+import time
 
 WIDTH = 800
-HEIGHT = 650
+HEIGHT = 200
 FPS = 30
+
+ip = "http://192.168.1.16"
 
 # Задаем цвета
 WHITE = (255, 255, 255)
@@ -17,7 +21,7 @@ x= WIDTH /2
 class Player(pygame.sprite.Sprite):
     def __init__(self):
         pygame.sprite.Sprite.__init__(self)
-        self.image = pygame.Surface((50, 50))
+        self.image = pygame.Surface((20, 20))
         self.image.fill(GREEN)
         self.rect = self.image.get_rect()
         self.rect.center = (WIDTH / 2, HEIGHT / 2)
@@ -32,16 +36,25 @@ class Player(pygame.sprite.Sprite):
 pygame.init()
 pygame.mixer.init()
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
-pygame.display.set_caption("My Game")
+pygame.display.set_caption("Coords")
 clock = pygame.time.Clock()
 all_sprites = pygame.sprite.Group()
 player = Player()
 all_sprites.add(player)
 def up():
-    global x
-    x = int(input("X:"))
+    print("connect")
+    while True:
+        global x
+        xx = requests.get(f"{ip}/dist").text
+        x = float(requests.get(f"{ip}/dist").text) * 6
+        print(f"Coord: {xx}")
+        
+        
+
 
 # Цикл игры
+a = Thread(target=up)
+a.start()
 running = True
 while running:
     # Держим цикл на правильной скорости
@@ -54,8 +67,7 @@ while running:
 
     # Обновление
     all_sprites.update()
-    a = Thread(target=up)
-    a.start()
+    
     # Рендеринг
     screen.fill(BLACK)
     all_sprites.draw(screen)
